@@ -83,10 +83,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { title: "أسماك أبو ناجي — Abu Naji Seafood Market" },
       { name: "description", content: "طازج من البحر إلى مائدتك — اطلب أسماك ومأكولات بحرية طازجة أونلاين. Fresh seafood delivered to your door in El-Shorouk." },
       { name: "author", content: "Abu Naji Seafood" },
-      { property: "og:title", content: "أسماك أبو ناجي — Abu Naji Seafood" },
-      { property: "og:description", content: "طازج من البحر إلى مائدتك — Fresh seafood, delivered." },
+      { property: "og:title", content: "أسماك أبو ناجي — Abu Naji Seafood Market" },
+      { property: "og:description", content: "طازج من البحر إلى مائدتك — اطلب أسماك ومأكولات بحرية طازجة أونلاين. Fresh seafood delivered to your door in El-Shorouk." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "أسماك أبو ناجي — Abu Naji Seafood Market" },
+      { name: "twitter:description", content: "طازج من البحر إلى مائدتك — اطلب أسماك ومأكولات بحرية طازجة أونلاين. Fresh seafood delivered to your door in El-Shorouk." },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/ijCYHrNjwSdsDsAaaitHRWvxv5p1/social-images/social-1783746991925-logo.webp" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/ijCYHrNjwSdsDsAaaitHRWvxv5p1/social-images/social-1783746991925-logo.webp" },
     ],
     links: [
       {
