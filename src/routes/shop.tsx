@@ -74,8 +74,23 @@ function Shop() {
             <button
               key={c.id}
               onClick={() => navigate({ search: (prev: ShopSearch) => ({ ...prev, category: c.id }) })}
-              className={`rounded-full border px-4 py-1.5 text-xs font-semibold transition ${category === c.id ? "border-gold bg-gold text-gold-foreground" : "border-border bg-card hover:border-gold"}`}
-            >{pickLocalized(c, "name", lang)}</button>
+              className={`inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-xs font-semibold transition ${category === c.id ? "border-gold bg-gold text-gold-foreground" : "border-border bg-card hover:border-gold"}`}
+            >
+              {c.image_url ? (
+                <span className="inline-flex h-5 w-5 overflow-hidden rounded-full ring-1 ring-current/20">
+                  <img
+                    src={c.image_url}
+                    alt=""
+                    loading="lazy"
+                    className="h-full w-full object-cover"
+                    onError={(e) => {
+                      e.currentTarget.style.display = "none";
+                    }}
+                  />
+                </span>
+              ) : null}
+              {pickLocalized(c, "name", lang)}
+            </button>
           ))}
         </div>
 

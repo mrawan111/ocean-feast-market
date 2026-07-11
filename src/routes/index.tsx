@@ -6,7 +6,7 @@ import { Footer } from "@/components/layout/Footer";
 import { ProductCard } from "@/components/product/ProductCard";
 import { useI18n, pickLocalized } from "@/lib/i18n";
 import { categoriesQuery, featuredProductsQuery, todaysCatchQuery, reviewsQuery, settingsQuery } from "@/lib/queries";
-import logoAsset from "@/assets/logo.jpg.asset.json";
+import logoUrl from "@/assets/logo.jpeg";
 import heroImg from "@/assets/hero-ocean.jpg";
 
 export const Route = createFileRoute("/")({
@@ -61,7 +61,7 @@ function Home() {
           </div>
           <div className="relative mx-auto aspect-square w-full max-w-md">
             <div className="absolute inset-0 rounded-full bg-gold/20 blur-3xl" />
-            <img src={logoAsset.url} alt={t("brand")} className="relative h-full w-full rounded-full object-cover ring-4 ring-gold/50 shadow-2xl" />
+            <img src={logoUrl} alt={t("brand")} className="relative h-full w-full rounded-full object-cover ring-4 ring-gold/50 shadow-2xl" />
           </div>
         </div>
       </section>
@@ -83,7 +83,21 @@ function Home() {
               search={{ category: c.id }}
               className="group flex aspect-square flex-col items-center justify-center gap-2 rounded-2xl border border-border bg-card p-4 text-center transition-all hover:border-gold hover:bg-surface"
             >
-              <Fish className="h-8 w-8 text-gold transition-transform group-hover:scale-110" />
+              <div className="grid h-16 w-16 place-items-center overflow-hidden rounded-2xl bg-ocean/40 ring-1 ring-border">
+                {c.image_url ? (
+                  <img
+                    src={c.image_url}
+                    alt={pickLocalized(c, "name", lang)}
+                    loading="lazy"
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    onError={(e) => {
+                      e.currentTarget.style.display = "none";
+                    }}
+                  />
+                ) : (
+                  <Fish className="h-8 w-8 text-gold transition-transform group-hover:scale-110" />
+                )}
+              </div>
               <span className="text-xs font-semibold leading-tight md:text-sm">{pickLocalized(c, "name", lang)}</span>
             </Link>
           ))}

@@ -29,6 +29,7 @@ function ProductPage() {
   const [weight, setWeight] = useState<number>(1);
   const [method, setMethod] = useState<string>("grilled");
   const [extras, setExtras] = useState<string[]>([]);
+  const [imageFailed, setImageFailed] = useState(false);
 
   if (!p) return null;
   const name = pickLocalized(p, "name", lang);
@@ -61,8 +62,8 @@ function ProductPage() {
       <Header />
       <div className="mx-auto grid max-w-6xl gap-10 px-4 py-10 md:grid-cols-2">
         <div className="aspect-square overflow-hidden rounded-3xl border border-border bg-card">
-          {p.image_url ? (
-            <img src={p.image_url} alt={name} className="h-full w-full object-cover" />
+          {p.image_url && !imageFailed ? (
+            <img src={p.image_url} alt={name} onError={() => setImageFailed(true)} className="h-full w-full object-cover" />
           ) : (
             <div className="flex h-full items-center justify-center text-gold/30"><Fish className="h-32 w-32"/></div>
           )}

@@ -1,10 +1,12 @@
 import { Link } from "@tanstack/react-router";
 import { Fish } from "lucide-react";
+import { useState } from "react";
 import { useI18n, pickLocalized } from "@/lib/i18n";
 import type { Tables } from "@/integrations/supabase/types";
 
 export function ProductCard({ p }: { p: Tables<"products"> }) {
   const { t, lang } = useI18n();
+  const [imageFailed, setImageFailed] = useState(false);
   const name = pickLocalized(p, "name", lang);
   const price = p.is_market_price
     ? t("market_price")
@@ -21,8 +23,14 @@ export function ProductCard({ p }: { p: Tables<"products"> }) {
       className="group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-card transition-all hover:border-gold hover:shadow-[0_10px_40px_-15px_oklch(0.78_0.14_82/0.35)]"
     >
       <div className="aspect-[4/3] overflow-hidden bg-ocean">
-        {p.image_url ? (
-          <img src={p.image_url} alt={name} loading="lazy" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110" />
+        {p.image_url && !imageFailed ? (
+          <img
+            src={p.image_url}
+            alt={name}
+            loading="lazy"
+            onError={() => setImageFailed(true)}
+            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+          />
         ) : (
           <div className="flex h-full items-center justify-center text-gold/30">
             <Fish className="h-16 w-16" />
