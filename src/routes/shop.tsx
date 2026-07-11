@@ -14,6 +14,7 @@ const searchSchema = z.object({
   category: fallback(z.string(), "").default(""),
   q: fallback(z.string(), "").default(""),
 });
+type ShopSearch = z.infer<typeof searchSchema>;
 
 export const Route = createFileRoute("/shop")({
   validateSearch: zodValidator(searchSchema),
@@ -57,7 +58,7 @@ function Shop() {
             <Search className="absolute start-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             <input
               value={q}
-              onChange={(e) => navigate({ search: (p) => ({ ...p, q: e.target.value }) })}
+              onChange={(e) => navigate({ search: (prev: ShopSearch) => ({ ...prev, q: e.target.value }) })}
               placeholder={t("search_products")}
               className="w-full rounded-full border border-border bg-card ps-10 pe-4 py-3 text-sm outline-none focus:border-gold"
             />
@@ -66,13 +67,13 @@ function Shop() {
 
         <div className="mt-4 flex flex-wrap gap-2">
           <button
-            onClick={() => navigate({ search: (p) => ({ ...p, category: "" }) })}
+            onClick={() => navigate({ search: (prev: ShopSearch) => ({ ...prev, category: "" }) })}
             className={`rounded-full border px-4 py-1.5 text-xs font-semibold transition ${category === "" ? "border-gold bg-gold text-gold-foreground" : "border-border bg-card hover:border-gold"}`}
           >{t("all_categories")}</button>
           {categories.map((c) => (
             <button
               key={c.id}
-              onClick={() => navigate({ search: (p) => ({ ...p, category: c.id }) })}
+              onClick={() => navigate({ search: (prev: ShopSearch) => ({ ...prev, category: c.id }) })}
               className={`rounded-full border px-4 py-1.5 text-xs font-semibold transition ${category === c.id ? "border-gold bg-gold text-gold-foreground" : "border-border bg-card hover:border-gold"}`}
             >{pickLocalized(c, "name", lang)}</button>
           ))}
