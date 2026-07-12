@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Fish, Phone, MapPin, MessageCircle, Waves } from "lucide-react";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
@@ -32,7 +32,6 @@ function Home() {
   const { data: categories } = useSuspenseQuery(categoriesQuery);
   const { data: products } = useSuspenseQuery(productsQuery);
   const { data: settings } = useSuspenseQuery(settingsQuery);
-  const [expandedDescriptions, setExpandedDescriptions] = useState<Record<string, boolean>>({});
 
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -128,33 +127,7 @@ function Home() {
                       </div>
                       <div className="min-w-0">
                         <h4 className="truncate font-semibold">{p.name_ar}</h4>
-                        {p.description_ar && (
-                          <div className="mt-1">
-                            <p
-                              className={`text-xs text-muted-foreground whitespace-pre-line ${
-                                expandedDescriptions[p.id]
-                                  ? ""
-                                  : "overflow-hidden [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2]"
-                              }`}
-                            >
-                              {p.description_ar}
-                            </p>
-                            {p.description_ar.length > 80 && (
-                              <button
-                                type="button"
-                                onClick={() =>
-                                  setExpandedDescriptions((current) => ({
-                                    ...current,
-                                    [p.id]: !current[p.id],
-                                  }))
-                                }
-                                className="mt-1 text-[11px] font-semibold text-gold hover:underline"
-                              >
-                                {expandedDescriptions[p.id] ? "Show less" : "Read more"}
-                              </button>
-                            )}
-                          </div>
-                        )}
+                        {p.description_ar && <ExpandableDescription text={p.description_ar} />}
                         {!p.available && <span className="text-[10px] text-destructive">غير متاح</span>}
                       </div>
                     </div>
@@ -192,6 +165,57 @@ function Home() {
       )}
 
       <Footer />
+    </div>
+  );
+}
+
+function ExpandableDescription({ text }: { text: string }) {
+  const [expanded, setExpanded] = useState(false);
+  const [isOverflowing, setIsOverflowing] = useState(false);
+  const ref = useRef<HTMLParagraphElement | null>(null);
+
+  useEffect(() => {
+    const node = ref.current;
+    if (!node) return;
+
+    const checkOverflow = () => {
+      if (node.scrollHeight > node.clientHeight + 1) {
+        setIsOverflowing(true);
+      }
+    };
+
+    checkOverflow();
+
+    const observer = new ResizeObserver(checkOverflow);
+    observer.observe(node);
+    window.addEventListener("resize", checkOverflow);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", checkOverflow);
+    };
+  }, [text]);
+
+  return (
+    <div className="mt-1">
+      <p
+        ref={ref}
+        className="overflow-hidden whitespace-pre-line text-xs text-muted-foreground transition-[max-height] duration-300"
+        style={{
+          maxHeight: expanded ? "999px" : "clamp(2.25rem, 6vw, 3.75rem)",
+        }}
+      >
+        {text}
+      </p>
+      {(isOverflowing || expanded) && (
+        <button
+          type="button"
+          onClick={() => setExpanded((current) => !current)}
+          className="mt-1 text-[11px] font-semibold text-gold hover:underline"
+        >
+          {expanded ? "إخفاء" : "قراءة المزيد"}
+        </button>
+      )}
     </div>
   );
 }
