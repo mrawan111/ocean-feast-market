@@ -10,7 +10,14 @@ export function Header() {
           <span className="truncate text-lg font-bold text-gold-gradient">أسماك أبو ناجي</span>
         </Link>
         <nav className="hidden items-center gap-8 md:flex">
-          <a href="#menu" className="text-sm text-foreground/80 hover:text-gold transition-colors">القائمة</a>
+          <a href="#menu" className="text-sm text-foreground/80 transition-colors hover:text-gold">القائمة</a>
+          <a
+            href="https://ocean-feast-market.lovable.app/admin"
+            className="flex items-center transition-transform hover:scale-105"
+            aria-label="الانتقال إلى صفحة الأدمن"
+          >
+            <img src={logoUrl} alt="الأدمن" className="h-7 w-7 rounded-full object-cover ring-1 ring-gold/50" />
+          </a>
           <a href="#contact" className="text-sm text-foreground/80 hover:text-gold transition-colors">تواصل معنا</a>
         </nav>
       </div>
