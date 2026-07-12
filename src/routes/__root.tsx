@@ -11,8 +11,6 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
-import { I18nProvider } from "@/lib/i18n";
-import { CartProvider } from "@/lib/cart";
 import { Toaster } from "@/components/ui/sonner";
 
 function NotFoundComponent() {
@@ -20,16 +18,16 @@ function NotFoundComponent() {
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
         <h1 className="text-7xl font-bold text-foreground">404</h1>
-        <h2 className="mt-4 text-xl font-semibold text-foreground">Page not found</h2>
+        <h2 className="mt-4 text-xl font-semibold text-foreground">الصفحة غير موجودة</h2>
         <p className="mt-2 text-sm text-muted-foreground">
-          The page you're looking for doesn't exist or has been moved.
+          الصفحة التي تبحث عنها غير موجودة.
         </p>
         <div className="mt-6">
           <Link
             to="/"
             className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
           >
-            Go home
+            الرئيسية
           </Link>
         </div>
       </div>
@@ -48,10 +46,10 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
         <h1 className="text-xl font-semibold tracking-tight text-foreground">
-          This page didn't load
+          حدث خطأ ما
         </h1>
         <p className="mt-2 text-sm text-muted-foreground">
-          Something went wrong on our end. You can try refreshing or head back home.
+          حاول تحديث الصفحة أو العودة للرئيسية.
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-2">
           <button
@@ -61,13 +59,13 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
             }}
             className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
           >
-            Try again
+            إعادة المحاولة
           </button>
           <a
             href="/"
             className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
           >
-            Go home
+            الرئيسية
           </a>
         </div>
       </div>
@@ -80,15 +78,15 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "أسماك أبو ناجي — Abu Naji Seafood Market" },
-      { name: "description", content: "طازج من البحر إلى مائدتك — اطلب أسماك ومأكولات بحرية طازجة أونلاين. Fresh seafood delivered to your door in El-Shorouk." },
+      { title: "أسماك أبو ناجي — قائمة الطعام" },
+      { name: "description", content: "قائمة أسماك أبو ناجي — أسماك ومأكولات بحرية طازجة من البحر إلى مائدتك." },
       { name: "author", content: "Abu Naji Seafood" },
-      { property: "og:title", content: "أسماك أبو ناجي — Abu Naji Seafood Market" },
-      { property: "og:description", content: "طازج من البحر إلى مائدتك — اطلب أسماك ومأكولات بحرية طازجة أونلاين. Fresh seafood delivered to your door in El-Shorouk." },
+      { property: "og:title", content: "أسماك أبو ناجي — قائمة الطعام" },
+      { property: "og:description", content: "قائمة أسماك أبو ناجي — أسماك ومأكولات بحرية طازجة من البحر إلى مائدتك." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "أسماك أبو ناجي — Abu Naji Seafood Market" },
-      { name: "twitter:description", content: "طازج من البحر إلى مائدتك — اطلب أسماك ومأكولات بحرية طازجة أونلاين. Fresh seafood delivered to your door in El-Shorouk." },
+      { name: "twitter:title", content: "أسماك أبو ناجي — قائمة الطعام" },
+      { name: "twitter:description", content: "قائمة أسماك أبو ناجي — أسماك ومأكولات بحرية طازجة من البحر إلى مائدتك." },
       { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/ijCYHrNjwSdsDsAaaitHRWvxv5p1/social-images/social-1783746991925-logo.webp" },
       { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/ijCYHrNjwSdsDsAaaitHRWvxv5p1/social-images/social-1783746991925-logo.webp" },
     ],
@@ -128,12 +126,8 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <I18nProvider>
-        <CartProvider>
-          <Outlet />
-          <Toaster richColors position="top-center" />
-        </CartProvider>
-      </I18nProvider>
+      <Outlet />
+      <Toaster richColors position="top-center" />
     </QueryClientProvider>
   );
 }

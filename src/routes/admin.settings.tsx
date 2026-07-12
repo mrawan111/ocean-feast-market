@@ -12,46 +12,47 @@ function AdminSettings() {
     queryKey: ["admin", "settings"],
     queryFn: async () => (await supabase.from("site_settings").select("*").eq("id", 1).single()).data,
   });
-  const [form, setForm] = useState<Record<string, string | number>>({});
+  const [form, setForm] = useState<Record<string, string>>({});
   useEffect(() => {
     if (data) setForm({
       phone: data.phone, whatsapp: data.whatsapp, maps_url: data.maps_url,
-      address_ar: data.address_ar, address_en: data.address_en,
+      address_ar: data.address_ar,
       hours_ar: (data.opening_hours as { ar?: string })?.ar ?? "",
-      hours_en: (data.opening_hours as { en?: string })?.en ?? "",
-      delivery_fee: Number(data.delivery_fee),
-      hero_title_ar: data.hero_title_ar, hero_title_en: data.hero_title_en,
-      hero_subtitle_ar: data.hero_subtitle_ar, hero_subtitle_en: data.hero_subtitle_en,
+      hero_title_ar: data.hero_title_ar,
+      hero_subtitle_ar: data.hero_subtitle_ar,
     });
   }, [data]);
 
   async function save() {
     const { error } = await supabase.from("site_settings").update({
-      phone: String(form.phone), whatsapp: String(form.whatsapp), maps_url: String(form.maps_url),
-      address_ar: String(form.address_ar), address_en: String(form.address_en),
-      opening_hours: { ar: String(form.hours_ar), en: String(form.hours_en) },
-      delivery_fee: Number(form.delivery_fee),
-      hero_title_ar: String(form.hero_title_ar), hero_title_en: String(form.hero_title_en),
-      hero_subtitle_ar: String(form.hero_subtitle_ar), hero_subtitle_en: String(form.hero_subtitle_en),
+      phone: form.phone, whatsapp: form.whatsapp, maps_url: form.maps_url,
+      address_ar: form.address_ar,
+      address_en: form.address_ar,
+      opening_hours: { ar: form.hours_ar, en: form.hours_ar },
+      hero_title_ar: form.hero_title_ar,
+      hero_title_en: form.hero_title_ar,
+      hero_subtitle_ar: form.hero_subtitle_ar,
+      hero_subtitle_en: form.hero_subtitle_ar,
     }).eq("id", 1);
     if (error) return toast.error(error.message);
     qc.invalidateQueries({ queryKey: ["settings"] });
     qc.invalidateQueries({ queryKey: ["admin", "settings"] });
-    toast.success("Saved");
+    toast.success("تم الحفظ");
   }
 
   const fields: [string, string][] = [
-    ["phone", "Phone"], ["whatsapp", "WhatsApp"], ["maps_url", "Google Maps URL"],
-    ["address_ar", "Address (AR)"], ["address_en", "Address (EN)"],
-    ["hours_ar", "Hours (AR)"], ["hours_en", "Hours (EN)"],
-    ["delivery_fee", "Delivery Fee"],
-    ["hero_title_ar", "Hero Title (AR)"], ["hero_title_en", "Hero Title (EN)"],
-    ["hero_subtitle_ar", "Hero Subtitle (AR)"], ["hero_subtitle_en", "Hero Subtitle (EN)"],
+    ["phone", "رقم الهاتف"],
+    ["whatsapp", "رقم واتساب"],
+    ["maps_url", "رابط خرائط جوجل"],
+    ["address_ar", "العنوان"],
+    ["hours_ar", "مواعيد العمل"],
+    ["hero_title_ar", "عنوان الصفحة الرئيسية"],
+    ["hero_subtitle_ar", "الوصف الرئيسي"],
   ];
 
   return (
     <div className="space-y-4 max-w-2xl">
-      <h1 className="text-2xl font-bold">Settings</h1>
+      <h1 className="text-2xl font-bold">الإعدادات</h1>
       <div className="rounded-2xl border border-border bg-card p-6 space-y-3">
         {fields.map(([k, label]) => (
           <div key={k}>
@@ -60,7 +61,7 @@ function AdminSettings() {
               className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm" />
           </div>
         ))}
-        <button onClick={save} className="gold-gradient rounded-full px-6 py-2 text-sm font-bold text-gold-foreground">Save</button>
+        <button onClick={save} className="gold-gradient rounded-full px-6 py-2 text-sm font-bold text-gold-foreground">حفظ</button>
       </div>
     </div>
   );

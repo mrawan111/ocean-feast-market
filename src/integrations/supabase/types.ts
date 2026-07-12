@@ -47,105 +47,6 @@ export type Database = {
         }
         Relationships: []
       }
-      order_items: {
-        Row: {
-          cooking_method: string | null
-          created_at: string
-          extras: Json
-          id: string
-          line_total: number
-          name_snapshot: string
-          order_id: string
-          product_id: string | null
-          quantity: number
-          unit_price: number
-          weight_kg: number | null
-        }
-        Insert: {
-          cooking_method?: string | null
-          created_at?: string
-          extras?: Json
-          id?: string
-          line_total?: number
-          name_snapshot: string
-          order_id: string
-          product_id?: string | null
-          quantity?: number
-          unit_price?: number
-          weight_kg?: number | null
-        }
-        Update: {
-          cooking_method?: string | null
-          created_at?: string
-          extras?: Json
-          id?: string
-          line_total?: number
-          name_snapshot?: string
-          order_id?: string
-          product_id?: string | null
-          quantity?: number
-          unit_price?: number
-          weight_kg?: number | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "order_items_order_id_fkey"
-            columns: ["order_id"]
-            isOneToOne: false
-            referencedRelation: "orders"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "order_items_product_id_fkey"
-            columns: ["product_id"]
-            isOneToOne: false
-            referencedRelation: "products"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      orders: {
-        Row: {
-          address: string
-          created_at: string
-          customer_name: string
-          delivery_fee: number
-          id: string
-          notes: string | null
-          phone: string
-          status: Database["public"]["Enums"]["order_status"]
-          subtotal: number
-          total: number
-          updated_at: string
-        }
-        Insert: {
-          address: string
-          created_at?: string
-          customer_name: string
-          delivery_fee?: number
-          id?: string
-          notes?: string | null
-          phone: string
-          status?: Database["public"]["Enums"]["order_status"]
-          subtotal?: number
-          total?: number
-          updated_at?: string
-        }
-        Update: {
-          address?: string
-          created_at?: string
-          customer_name?: string
-          delivery_fee?: number
-          id?: string
-          notes?: string | null
-          phone?: string
-          status?: Database["public"]["Enums"]["order_status"]
-          subtotal?: number
-          total?: number
-          updated_at?: string
-        }
-        Relationships: []
-      }
       products: {
         Row: {
           available: boolean
@@ -208,41 +109,10 @@ export type Database = {
           },
         ]
       }
-      reviews: {
-        Row: {
-          approved: boolean
-          comment_ar: string | null
-          comment_en: string | null
-          created_at: string
-          id: string
-          name: string
-          rating: number
-        }
-        Insert: {
-          approved?: boolean
-          comment_ar?: string | null
-          comment_en?: string | null
-          created_at?: string
-          id?: string
-          name: string
-          rating?: number
-        }
-        Update: {
-          approved?: boolean
-          comment_ar?: string | null
-          comment_en?: string | null
-          created_at?: string
-          id?: string
-          name?: string
-          rating?: number
-        }
-        Relationships: []
-      }
       site_settings: {
         Row: {
           address_ar: string
           address_en: string
-          delivery_fee: number
           hero_subtitle_ar: string
           hero_subtitle_en: string
           hero_title_ar: string
@@ -257,7 +127,6 @@ export type Database = {
         Insert: {
           address_ar?: string
           address_en?: string
-          delivery_fee?: number
           hero_subtitle_ar?: string
           hero_subtitle_en?: string
           hero_title_ar?: string
@@ -272,7 +141,6 @@ export type Database = {
         Update: {
           address_ar?: string
           address_en?: string
-          delivery_fee?: number
           hero_subtitle_ar?: string
           hero_subtitle_en?: string
           hero_title_ar?: string

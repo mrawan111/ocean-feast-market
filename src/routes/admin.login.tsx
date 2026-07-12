@@ -4,7 +4,7 @@ import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/admin/login")({
-  head: () => ({ meta: [{ title: "Admin Login" }] }),
+  head: () => ({ meta: [{ title: "دخول الأدمن" }] }),
   component: AdminLogin,
 });
 
@@ -25,7 +25,7 @@ function AdminLogin() {
           options: { emailRedirectTo: `${window.location.origin}/admin` },
         });
         if (error) throw error;
-        toast.success("Account created. If email confirmation is disabled you can log in now.");
+        toast.success("تم إنشاء الحساب. إذا كان التأكيد بالبريد معطّلًا يمكنك الدخول الآن.");
         setMode("login");
       } else {
         const { error } = await supabase.auth.signInWithPassword({ email, password });
@@ -33,25 +33,24 @@ function AdminLogin() {
         nav({ to: "/admin" });
       }
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : "Error");
+      toast.error(err instanceof Error ? err.message : "حدث خطأ");
     } finally { setLoading(false); }
   }
 
   return (
-    <div className="grid min-h-screen place-items-center bg-background px-4">
+    <div className="grid min-h-screen place-items-center bg-background px-4" dir="rtl">
       <form onSubmit={submit} className="w-full max-w-sm space-y-4 rounded-2xl border border-border bg-card p-8">
-        <h1 className="text-2xl font-bold text-gold-gradient">Admin {mode === "signup" ? "Signup" : "Login"}</h1>
-        <input type="email" required placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}
+        <h1 className="text-2xl font-bold text-gold-gradient">{mode === "signup" ? "إنشاء حساب أدمن" : "دخول الأدمن"}</h1>
+        <input type="email" required placeholder="البريد الإلكتروني" value={email} onChange={(e) => setEmail(e.target.value)}
           className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm outline-none focus:border-gold" />
-        <input type="password" required minLength={6} placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}
+        <input type="password" required minLength={6} placeholder="كلمة المرور" value={password} onChange={(e) => setPassword(e.target.value)}
           className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm outline-none focus:border-gold" />
         <button disabled={loading} className="w-full gold-gradient rounded-full py-3 text-sm font-bold text-gold-foreground disabled:opacity-50">
-          {loading ? "..." : mode === "signup" ? "Sign up" : "Log in"}
+          {loading ? "..." : mode === "signup" ? "إنشاء حساب" : "دخول"}
         </button>
         <button type="button" onClick={() => setMode(mode === "login" ? "signup" : "login")} className="w-full text-xs text-muted-foreground hover:text-gold">
-          {mode === "login" ? "Need an account? Sign up" : "Have an account? Log in"}
+          {mode === "login" ? "ليس لديك حساب؟ سجّل الآن" : "لديك حساب؟ سجّل الدخول"}
         </button>
-        <p className="text-[10px] text-muted-foreground text-center">Note: after signup, grant your user the admin role in Supabase.</p>
       </form>
     </div>
   );
