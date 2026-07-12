@@ -5,7 +5,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { categoriesQuery, productsQuery, settingsQuery } from "@/lib/queries";
 import type { Tables } from "@/integrations/supabase/types";
-import logoUrl from "@/assets/logo.jpeg";
+import logoUrl from "@/assets/logo.png";
 import heroImg from "@/assets/hero-ocean.jpg";
 
 export const Route = createFileRoute("/")({

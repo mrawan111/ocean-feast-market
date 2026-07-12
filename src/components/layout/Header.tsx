@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import logoUrl from "@/assets/logo.jpeg";
+import logoUrl from "@/assets/logo.png";
 
 export function Header() {
   return (
