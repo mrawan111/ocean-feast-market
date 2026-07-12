@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
+import { useState } from "react";
 import { Fish, Phone, MapPin, MessageCircle, Waves } from "lucide-react";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
@@ -31,6 +32,7 @@ function Home() {
   const { data: categories } = useSuspenseQuery(categoriesQuery);
   const { data: products } = useSuspenseQuery(productsQuery);
   const { data: settings } = useSuspenseQuery(settingsQuery);
+  const [expandedDescriptions, setExpandedDescriptions] = useState<Record<string, boolean>>({});
 
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -126,7 +128,33 @@ function Home() {
                       </div>
                       <div className="min-w-0">
                         <h4 className="truncate font-semibold">{p.name_ar}</h4>
-                        {p.description_ar && <p className="truncate text-xs text-muted-foreground">{p.description_ar}</p>}
+                        {p.description_ar && (
+                          <div className="mt-1">
+                            <p
+                              className={`text-xs text-muted-foreground whitespace-pre-line ${
+                                expandedDescriptions[p.id]
+                                  ? ""
+                                  : "overflow-hidden [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2]"
+                              }`}
+                            >
+                              {p.description_ar}
+                            </p>
+                            {p.description_ar.length > 80 && (
+                              <button
+                                type="button"
+                                onClick={() =>
+                                  setExpandedDescriptions((current) => ({
+                                    ...current,
+                                    [p.id]: !current[p.id],
+                                  }))
+                                }
+                                className="mt-1 text-[11px] font-semibold text-gold hover:underline"
+                              >
+                                {expandedDescriptions[p.id] ? "Show less" : "Read more"}
+                              </button>
+                            )}
+                          </div>
+                        )}
                         {!p.available && <span className="text-[10px] text-destructive">غير متاح</span>}
                       </div>
                     </div>
