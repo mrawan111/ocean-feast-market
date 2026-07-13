@@ -7,6 +7,7 @@ import { Wordmark } from "@/components/layout/Wordmark";
 import { categoriesQuery, productsQuery, settingsQuery } from "@/lib/queries";
 import type { Tables } from "@/integrations/supabase/types";
 import logoUrl from "@/assets/logo.png";
+import watermarkUrl from "@/assets/brand-watermark.png";
 import heroImg from "@/assets/hero-ocean.jpg";
 
 export const Route = createFileRoute("/")({
@@ -45,6 +46,12 @@ function Home() {
       <section className="relative overflow-hidden">
         <img src={heroImg} alt="" width={1920} height={1080} className="absolute inset-0 h-full w-full object-cover opacity-60" />
         <div className="absolute inset-0 bg-gradient-to-b from-ocean/40 via-ocean/80 to-background" />
+        <img
+          src={watermarkUrl}
+          alt=""
+          aria-hidden="true"
+          className="pointer-events-none absolute left-1/2 top-1/2 w-[145vw] max-w-none -translate-x-1/2 -translate-y-1/2 select-none opacity-[0.10] md:w-[105vw] lg:w-[90rem]"
+        />
         <div className="relative mx-auto grid max-w-7xl gap-10 px-4 py-16 md:grid-cols-2 md:py-28 md:items-center">
           <div className="text-center md:text-start">
             <span className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold/10 px-3 py-1 text-xs font-medium text-gold">
@@ -71,8 +78,7 @@ function Home() {
             </div>
           </div>
           <div className="relative mx-auto aspect-square w-full max-w-md">
-            <div className="absolute inset-0 rounded-full bg-gold/20 blur-3xl" />
-            <img src={logoUrl} alt="أسماك أبو ناجي" className="relative h-full w-full rounded-full object-cover ring-4 ring-gold/50 shadow-2xl" />
+            <img src={logoUrl} alt="أسماك أبو ناجي" className="relative h-full w-full object-contain drop-shadow-2xl" />
           </div>
         </div>
       </section>
