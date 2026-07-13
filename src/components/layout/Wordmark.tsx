@@ -5,7 +5,8 @@ export function Wordmark({ className = "h-10 md:h-12" }: { className?: string })
     <img
       src={wordmark.url}
       alt="أسماك أبو ناجي"
-      className={`w-auto object-contain drop-shadow-[0_0_18px_rgba(212,175,55,0.35)] ${className}`}
+      style={{ mixBlendMode: "screen" }}
+      className={`w-auto object-contain ${className}`}
       loading="eager"
       decoding="async"
     />
