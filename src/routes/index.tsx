@@ -1,6 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { useEffect, useRef, useState } from "react";
 import { Fish, Phone, MapPin, MessageCircle, Waves } from "lucide-react";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
@@ -178,53 +177,4 @@ function Home() {
   );
 }
 
-function ExpandableDescription({ text }: { text: string }) {
-  const [expanded, setExpanded] = useState(false);
-  const [isOverflowing, setIsOverflowing] = useState(false);
-  const ref = useRef<HTMLParagraphElement | null>(null);
 
-  useEffect(() => {
-    const node = ref.current;
-    if (!node) return;
-
-    const checkOverflow = () => {
-      if (node.scrollHeight > node.clientHeight + 1) {
-        setIsOverflowing(true);
-      }
-    };
-
-    checkOverflow();
-
-    const observer = new ResizeObserver(checkOverflow);
-    observer.observe(node);
-    window.addEventListener("resize", checkOverflow);
-
-    return () => {
-      observer.disconnect();
-      window.removeEventListener("resize", checkOverflow);
-    };
-  }, [text]);
-
-  return (
-    <div className="mt-1">
-      <p
-        ref={ref}
-        className="overflow-hidden whitespace-pre-line text-xs text-muted-foreground transition-[max-height] duration-300"
-        style={{
-          maxHeight: expanded ? "999px" : "clamp(2.25rem, 6vw, 3.75rem)",
-        }}
-      >
-        {text}
-      </p>
-      {(isOverflowing || expanded) && (
-        <button
-          type="button"
-          onClick={() => setExpanded((current) => !current)}
-          className="mt-1 text-[11px] font-semibold text-gold hover:underline"
-        >
-          {expanded ? "إخفاء" : "قراءة المزيد"}
-        </button>
-      )}
-    </div>
-  );
-}
