@@ -12,7 +12,7 @@ export function Footer() {
     <footer id="contact" className="border-t border-border bg-ocean mt-20">
       <div className="mx-auto max-w-7xl grid gap-10 px-4 py-14 md:grid-cols-4">
         <div>
-          <Wordmark className="h-14 mb-3" />
+          <Wordmark className="h-20 md:h-24 mb-3" />
           <p className="text-sm text-muted-foreground">من البحر إلى مائدتك</p>
         </div>
         <div>
