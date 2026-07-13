@@ -134,7 +134,9 @@ function Home() {
                       </div>
                       <div className="min-w-0">
                         <h4 className="truncate font-semibold">{p.name_ar}</h4>
-                        {p.description_ar && <ExpandableDescription text={p.description_ar} />}
+                        {p.description_ar && (
+                          <p className="line-clamp-1 text-xs text-muted-foreground">{p.description_ar}</p>
+                        )}
                         {!p.available && <span className="text-[10px] text-destructive">غير متاح</span>}
                       </div>
                     </div>
