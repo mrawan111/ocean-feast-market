@@ -51,7 +51,7 @@ function Home() {
               <Waves className="h-3.5 w-3.5" /> من البحر إلى مائدتك
             </span>
             <h1 className="mt-6 flex justify-center md:justify-start">
-              <Wordmark className="h-24 md:h-32" />
+              <Wordmark className="h-36 md:h-52" />
               <span className="sr-only">أسماك أبو ناجي</span>
             </h1>
             <p className="mt-6 max-w-lg text-lg text-muted-foreground md:text-xl">

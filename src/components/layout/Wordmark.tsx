@@ -1,6 +1,6 @@
 import wordmark from "@/assets/brand-wordmark.png.asset.json";
 
-export function Wordmark({ className = "h-10 md:h-12" }: { className?: string }) {
+export function Wordmark({ className = "h-12 md:h-16" }: { className?: string }) {
   return (
     <img
       src={wordmark.url}
