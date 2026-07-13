@@ -1,6 +1,7 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { Phone, MessageCircle, MapPin, Clock } from "lucide-react";
 import { settingsQuery } from "@/lib/queries";
+import { Wordmark } from "./Wordmark";
 
 export function Footer() {
   const { data: s } = useSuspenseQuery(settingsQuery);
@@ -11,7 +12,7 @@ export function Footer() {
     <footer id="contact" className="border-t border-border bg-ocean mt-20">
       <div className="mx-auto max-w-7xl grid gap-10 px-4 py-14 md:grid-cols-4">
         <div>
-          <h3 className="text-xl font-bold text-gold-gradient mb-3">أسماك أبو ناجي</h3>
+          <Wordmark className="h-14 mb-3" />
           <p className="text-sm text-muted-foreground">من البحر إلى مائدتك</p>
         </div>
         <div>

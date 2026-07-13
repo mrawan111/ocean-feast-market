@@ -1,9 +1,9 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { useEffect, useRef, useState } from "react";
 import { Fish, Phone, MapPin, MessageCircle, Waves } from "lucide-react";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { Wordmark } from "@/components/layout/Wordmark";
 import { categoriesQuery, productsQuery, settingsQuery } from "@/lib/queries";
 import type { Tables } from "@/integrations/supabase/types";
 import logoUrl from "@/assets/logo.png";
@@ -50,8 +50,9 @@ function Home() {
             <span className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold/10 px-3 py-1 text-xs font-medium text-gold">
               <Waves className="h-3.5 w-3.5" /> من البحر إلى مائدتك
             </span>
-            <h1 className="mt-6 text-5xl font-black leading-tight md:text-7xl">
-              <span className="text-gold-gradient">أسماك أبو ناجي</span>
+            <h1 className="mt-6 flex justify-center md:justify-start">
+              <Wordmark className="h-24 md:h-32" />
+              <span className="sr-only">أسماك أبو ناجي</span>
             </h1>
             <p className="mt-6 max-w-lg text-lg text-muted-foreground md:text-xl">
               أطيب المأكولات البحرية الطازجة — تصفح قائمتنا واختر ما يحلو لك.
@@ -116,7 +117,12 @@ function Home() {
               </div>
               <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                 {items.map((p) => (
-                  <div key={p.id} className="flex items-center justify-between gap-3 rounded-2xl border border-border bg-card p-4 transition-all hover:border-gold/60">
+                  <Link
+                    key={p.id}
+                    to="/product/$id"
+                    params={{ id: p.id }}
+                    className="flex items-center justify-between gap-3 rounded-2xl border border-border bg-card p-4 transition-all hover:border-gold/60 hover:scale-[1.01]"
+                  >
                     <div className="flex items-center gap-3 min-w-0">
                       <div className="grid h-14 w-14 shrink-0 place-items-center overflow-hidden rounded-xl bg-ocean/50">
                         {p.image_url ? (
@@ -127,12 +133,14 @@ function Home() {
                       </div>
                       <div className="min-w-0">
                         <h4 className="truncate font-semibold">{p.name_ar}</h4>
-                        {p.description_ar && <ExpandableDescription text={p.description_ar} />}
+                        {p.description_ar && (
+                          <p className="line-clamp-1 text-xs text-muted-foreground">{p.description_ar}</p>
+                        )}
                         {!p.available && <span className="text-[10px] text-destructive">غير متاح</span>}
                       </div>
                     </div>
                     <span className="shrink-0 text-sm font-bold text-gold">{formatPrice(p)}</span>
-                  </div>
+                  </Link>
                 ))}
               </div>
             </div>
@@ -169,53 +177,4 @@ function Home() {
   );
 }
 
-function ExpandableDescription({ text }: { text: string }) {
-  const [expanded, setExpanded] = useState(false);
-  const [isOverflowing, setIsOverflowing] = useState(false);
-  const ref = useRef<HTMLParagraphElement | null>(null);
 
-  useEffect(() => {
-    const node = ref.current;
-    if (!node) return;
-
-    const checkOverflow = () => {
-      if (node.scrollHeight > node.clientHeight + 1) {
-        setIsOverflowing(true);
-      }
-    };
-
-    checkOverflow();
-
-    const observer = new ResizeObserver(checkOverflow);
-    observer.observe(node);
-    window.addEventListener("resize", checkOverflow);
-
-    return () => {
-      observer.disconnect();
-      window.removeEventListener("resize", checkOverflow);
-    };
-  }, [text]);
-
-  return (
-    <div className="mt-1">
-      <p
-        ref={ref}
-        className="overflow-hidden whitespace-pre-line text-xs text-muted-foreground transition-[max-height] duration-300"
-        style={{
-          maxHeight: expanded ? "999px" : "clamp(2.25rem, 6vw, 3.75rem)",
-        }}
-      >
-        {text}
-      </p>
-      {(isOverflowing || expanded) && (
-        <button
-          type="button"
-          onClick={() => setExpanded((current) => !current)}
-          className="mt-1 text-[11px] font-semibold text-gold hover:underline"
-        >
-          {expanded ? "إخفاء" : "قراءة المزيد"}
-        </button>
-      )}
-    </div>
-  );
-}
