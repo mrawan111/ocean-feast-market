@@ -175,3 +175,16 @@
   background-clip: text;
   color: transparent;
 }
+
+@keyframes marquee-rtl {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee-rtl {
+  animation: marquee-rtl linear infinite;
+}
