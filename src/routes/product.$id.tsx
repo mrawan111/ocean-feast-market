@@ -3,6 +3,7 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { ArrowRight, Fish, Phone, MessageCircle } from "lucide-react";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { MarqueeText } from "@/components/ui/MarqueeText";
 import { productsQuery, settingsQuery, categoriesQuery } from "@/lib/queries";
 import type { Tables } from "@/integrations/supabase/types";
 
@@ -72,14 +73,14 @@ function ProductPage() {
             )}
           </div>
 
-          <div className="flex flex-col">
+          <div className="flex min-w-0 flex-col">
             {category && (
               <span className="text-xs font-semibold uppercase tracking-widest text-gold">
                 {category.name_ar}
               </span>
             )}
-            <h1 className="mt-2 text-3xl font-black md:text-4xl">
-              <span className="text-gold-gradient">{product.name_ar}</span>
+            <h1 className="mt-2 max-w-full text-3xl font-black leading-tight text-gold md:text-4xl">
+              <MarqueeText speed={18}>{product.name_ar}</MarqueeText>
             </h1>
 
             <div className="mt-5 inline-flex w-fit items-baseline gap-2 rounded-2xl border border-gold/40 bg-ocean/40 px-5 py-3">

@@ -4,6 +4,7 @@ import { Fish, Phone, MapPin, MessageCircle, Waves } from "lucide-react";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Wordmark } from "@/components/layout/Wordmark";
+import { MarqueeText } from "@/components/ui/MarqueeText";
 import { categoriesQuery, productsQuery, settingsQuery } from "@/lib/queries";
 import type { Tables } from "@/integrations/supabase/types";
 import logoUrl from "@/assets/logo.png";
@@ -118,7 +119,7 @@ function Home() {
             <div key={c.id} id={`cat-${c.id}`} className="scroll-mt-24 py-8">
               <div className="mb-6 flex items-center gap-4">
                 <div className="h-px flex-1 bg-gradient-to-l from-gold/60 to-transparent" />
-                <h3 className="text-2xl font-bold text-gold-gradient md:text-3xl">{c.name_ar}</h3>
+                <h3 className="break-words text-center text-2xl font-bold text-gold-gradient md:text-3xl">{c.name_ar}</h3>
                 <div className="h-px flex-1 bg-gradient-to-r from-gold/60 to-transparent" />
               </div>
               <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -127,9 +128,9 @@ function Home() {
                     key={p.id}
                     to="/product/$id"
                     params={{ id: p.id }}
-                    className="flex items-center justify-between gap-3 rounded-2xl border border-border bg-card p-4 transition-all hover:border-gold/60 hover:scale-[1.01]"
+                    className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 rounded-2xl border border-border bg-card p-4 transition-all hover:border-gold/60 hover:scale-[1.01]"
                   >
-                    <div className="flex items-center gap-3 min-w-0">
+                    <div className="flex min-w-0 items-center gap-3">
                       <div className="grid h-14 w-14 shrink-0 place-items-center overflow-hidden rounded-xl bg-ocean/50">
                         {p.image_url ? (
                           <img src={p.image_url} alt={p.name_ar} loading="lazy" className="h-full w-full object-cover" />
@@ -138,7 +139,11 @@ function Home() {
                         )}
                       </div>
                       <div className="min-w-0">
-                        <h4 className="truncate font-semibold">{p.name_ar}</h4>
+                        <h4 className="font-semibold leading-tight">
+                          <MarqueeText className="max-w-full text-base" speed={20}>
+                            {p.name_ar}
+                          </MarqueeText>
+                        </h4>
                         {p.description_ar && (
                           <p className="line-clamp-1 text-xs text-muted-foreground">{p.description_ar}</p>
                         )}
