@@ -78,7 +78,7 @@ function ProductPage() {
                 {category.name_ar}
               </span>
             )}
-            <h1 className="mt-2 text-3xl font-black md:text-4xl">
+            <h1 className="mt-2 break-words text-3xl font-black leading-tight md:text-4xl">
               <span className="text-gold-gradient">{product.name_ar}</span>
             </h1>
 

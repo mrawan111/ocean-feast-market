@@ -118,7 +118,7 @@ function Home() {
             <div key={c.id} id={`cat-${c.id}`} className="scroll-mt-24 py-8">
               <div className="mb-6 flex items-center gap-4">
                 <div className="h-px flex-1 bg-gradient-to-l from-gold/60 to-transparent" />
-                <h3 className="text-2xl font-bold text-gold-gradient md:text-3xl">{c.name_ar}</h3>
+                <h3 className="break-words text-center text-2xl font-bold text-gold-gradient md:text-3xl">{c.name_ar}</h3>
                 <div className="h-px flex-1 bg-gradient-to-r from-gold/60 to-transparent" />
               </div>
               <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
