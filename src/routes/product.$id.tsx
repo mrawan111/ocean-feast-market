@@ -73,7 +73,7 @@ function ProductPage() {
             )}
           </div>
 
-          <div className="flex flex-col">
+          <div className="flex min-w-0 flex-col">
             {category && (
               <span className="text-xs font-semibold uppercase tracking-widest text-gold">
                 {category.name_ar}
