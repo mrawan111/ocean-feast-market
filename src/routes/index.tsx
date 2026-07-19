@@ -139,7 +139,11 @@ function Home() {
                         )}
                       </div>
                       <div className="min-w-0">
-                        <h4 className="break-words font-semibold leading-tight">{p.name_ar}</h4>
+                        <h4 className="font-semibold leading-tight">
+                          <MarqueeText className="max-w-full text-base" speed={20}>
+                            {p.name_ar}
+                          </MarqueeText>
+                        </h4>
                         {p.description_ar && (
                           <p className="line-clamp-1 text-xs text-muted-foreground">{p.description_ar}</p>
                         )}
