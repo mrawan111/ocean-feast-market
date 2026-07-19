@@ -3,10 +3,12 @@ import { useEffect, useRef, useState } from "react";
 export function MarqueeText({
   children,
   className = "",
+  textClassName = "",
   speed = 25,
 }: {
   children: string;
   className?: string;
+  textClassName?: string;
   speed?: number;
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -28,7 +30,7 @@ export function MarqueeText({
     >
       <span
         ref={textRef}
-        className={`inline-block ${shouldScroll ? "animate-marquee-rtl" : ""}`}
+        className={`inline-block ${shouldScroll ? "animate-marquee-rtl" : ""} ${textClassName}`}
         style={
           shouldScroll
             ? {
