@@ -79,8 +79,10 @@ function ProductPage() {
                 {category.name_ar}
               </span>
             )}
-            <h1 className="mt-2 break-words text-3xl font-black leading-tight md:text-4xl">
-              <span className="text-gold-gradient">{product.name_ar}</span>
+            <h1 className="mt-2 text-3xl font-black leading-tight md:text-4xl">
+              <MarqueeText className="text-gold-gradient max-w-full" speed={18}>
+                {product.name_ar}
+              </MarqueeText>
             </h1>
 
             <div className="mt-5 inline-flex w-fit items-baseline gap-2 rounded-2xl border border-gold/40 bg-ocean/40 px-5 py-3">
