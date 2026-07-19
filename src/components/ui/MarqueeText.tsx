@@ -23,7 +23,7 @@ export function MarqueeText({
   return (
     <div
       ref={containerRef}
-      className={`relative overflow-hidden whitespace-nowrap ${className}`}
+      className={`relative min-w-0 max-w-full overflow-hidden whitespace-nowrap ${className}`}
       aria-label={children}
     >
       <span
