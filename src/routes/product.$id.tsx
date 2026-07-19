@@ -3,6 +3,7 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { ArrowRight, Fish, Phone, MessageCircle } from "lucide-react";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { MarqueeText } from "@/components/ui/MarqueeText";
 import { productsQuery, settingsQuery, categoriesQuery } from "@/lib/queries";
 import type { Tables } from "@/integrations/supabase/types";
 
